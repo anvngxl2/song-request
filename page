@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invia il tuo titolo di canzone</title>
+</head>
+<body>
+    <h1>Invia il tuo titolo di canzone</h1>
+    <form action="processa_form.php" method="POST">
+        <label for="titolo">Titolo della canzone:</label><br>
+        <input type="text" id="titolo" name="titolo" required><br><br>
+        <input type="submit" value="Invia">
+    </form>
+</body>
+</html>
+
+<?php
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $titolo = $_POST['titolo'];
+
+    // Elabora il titolo della canzone (ad esempio, invialo a un'email)
+    $to = "canzonitiktok06@gmail.com";
+    $subject = "Nuovo titolo di canzone suggerito";
+    $message = "Titolo della canzone: " . $titolo;
+    $headers = "From: webmaster@example.com";
+
+    mail($to, $subject, $message, $headers);
+    
+    // Ritorna una conferma all'utente
+    echo "Grazie per aver inviato il titolo della canzone!";
+} else {
+    // Se il metodo di richiesta non è POST, reindirizza alla pagina del modulo
+    header("Location: index.html");
+    exit;
+}
+?>
